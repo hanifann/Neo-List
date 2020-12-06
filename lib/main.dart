@@ -1,0 +1,25 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:hexcolor/hexcolor.dart';
+import 'package:neo_list/view/home/home_screen.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    return NeumorphicApp(
+      debugShowCheckedModeBanner: false,
+      themeMode: ThemeMode.light,
+      theme: NeumorphicThemeData(
+        baseColor: HexColor("#e3edf9"),
+        lightSource: LightSource.topLeft,
+        depth: 8,
+      ),
+      home: HomeScreen(),
+    );
+  }
+}
