@@ -87,7 +87,7 @@ class HomeScreen extends StatelessWidget {
                                 color: textColor
                               ),
                             ),
-                            subtitle: Text(_controller.kategoriList[index].dateTime,
+                            subtitle: Text(_controller.kategoriList[index].dateTime.toString(),
                               style: TextStyle(
                                 color: secTextColor
                               )

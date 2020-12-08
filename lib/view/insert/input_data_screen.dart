@@ -10,7 +10,6 @@ import '../../share/colors.dart';
 class InsertDataScreen extends StatelessWidget {
   final TodoController _controller = Get.find<TodoController>();
   final _formKey = GlobalKey<FormState>();
-  String dropdownValue = 'One';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +23,7 @@ class InsertDataScreen extends StatelessWidget {
             ),
             onTap: (){
               Get.back();
-              _controller.getCategory('kategori','Work');
+              _controller.getCategory('dateTime',DateFormat('dd MMMM yyyy').format(DateTime.now()));
             },
           ),
         ],
@@ -79,7 +78,10 @@ class InsertDataScreen extends StatelessWidget {
                 ),
                 border: InputBorder.none
               ),
-              onChanged: (val)=> _controller.dateController = val,
+              onChanged: (val){
+                _controller.dateController = 
+                  DateFormat('dd MMMM yyyy').format(DateTime.parse(val));
+              }              
             ),
             Row(
               children: [
@@ -98,7 +100,7 @@ class InsertDataScreen extends StatelessWidget {
                     onChanged: (String newValue) {
                       _controller.labelValue = newValue;
                     },
-                    items: <String>['Work', 'Study', 'Shop', 'Travel']
+                    items: _controller.categoryItemList
                         .map<DropdownMenuItem<String>>((String value) {
                       return DropdownMenuItem<String>(
                         value: value,
@@ -122,7 +124,7 @@ class InsertDataScreen extends StatelessWidget {
                   if(_formKey.currentState.validate()){
                     await _controller.addTodo();
                   }
-                  print(_controller.labelValue);
+                  print(DateFormat('dd MMMM yyyy').format(DateTime.now()));
                 },
               ),
             )

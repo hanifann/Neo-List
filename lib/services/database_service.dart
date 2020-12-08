@@ -3,7 +3,7 @@ import 'package:sqflite/sqflite.dart';
 
 class DatabaseService {
   static Database _database;
-  static final int _version = 2;
+  static final int _version = 1;
   static final String _tableName = 'db_todo';
 
   static Future<void> initDb() async {
