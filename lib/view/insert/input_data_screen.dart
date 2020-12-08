@@ -71,7 +71,12 @@ class InsertDataScreen extends StatelessWidget {
             Container(
               width: MediaQuery.of(context).size.width,
               child: NeumorphicButton(
-                child: Center(child: Text("Simpan")),
+                child: Center(
+                  child: Text("Simpan",
+                    style: TextStyle(
+                      color: textColor
+                    ),)
+                ),
                 onPressed: () {
                   
                 },

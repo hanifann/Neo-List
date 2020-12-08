@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:get/get.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:neo_list/share/colors.dart';
 import 'package:neo_list/view/insert/input_data_screen.dart';
 
@@ -100,8 +99,8 @@ class HomeScreen extends StatelessWidget {
           onPressed: () { 
             Get.to(InsertDataScreen());
            },
-          child: Icon(Icons.add, color: accentColor,),
-          backgroundColor: HexColor("#e3edf9"),
+          child: Icon(Icons.add, color: backgroundColor,),
+          backgroundColor: accentColor,
         ),
       );
   }

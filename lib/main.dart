@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:neo_list/share/colors.dart';
 import 'package:neo_list/view/home/home_screen.dart';
 
 void main() {
+
   runApp(MyApp());
 }
 
@@ -16,7 +18,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.light,
       theme: NeumorphicThemeData(
-        baseColor: HexColor("#e3edf9"),
+        baseColor: backgroundColor,
         lightSource: LightSource.topLeft,
         depth: 8,
       ),
@@ -24,7 +26,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         themeMode: ThemeMode.light,
         home: HomeScreen(),
-        theme: ThemeData(scaffoldBackgroundColor: HexColor("#e3edf9")),
+        theme: ThemeData(scaffoldBackgroundColor: backgroundColor),
       ),
     );
   }
