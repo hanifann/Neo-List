@@ -2,9 +2,12 @@ import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:get/get.dart';
+import 'package:neo_list/controller/todo_controller.dart';
 import 'package:neo_list/share/colors.dart';
 
 class InsertDataScreen extends StatelessWidget {
+  final TodoController _controller = Get.find<TodoController>();
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,6 +21,7 @@ class InsertDataScreen extends StatelessWidget {
             ),
             onTap: (){
               Get.back();
+              _controller.getTodo();
             },
           ),
         ],
@@ -33,18 +37,23 @@ class InsertDataScreen extends StatelessWidget {
               )
             ),
             Expanded(
-              child: TextField(
-                autofocus: true,
-                decoration: InputDecoration(
-                  focusedBorder: InputBorder.none,
-                  border: InputBorder.none
+              child: Form(
+                key: _formKey,
+                child: TextFormField(
+                  controller: _controller.todoTextController,
+                  autofocus: true,
+                  decoration: InputDecoration(
+                    focusedBorder: InputBorder.none,
+                    border: InputBorder.none,
+                  ),
+                  keyboardType: TextInputType.multiline,
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    color: secTextColor
+                  ),
+                  maxLines: 255,
+                  validator: (value) => value.trim().isEmpty ? 'Form harap diisi' : null ,
                 ),
-                keyboardType: TextInputType.multiline,
-                style: TextStyle(
-                  fontSize: 20.0,
-                  color: secTextColor
-                ),
-                maxLines: 255,
               ),
             ),
             Divider(
@@ -67,6 +76,7 @@ class InsertDataScreen extends StatelessWidget {
                 ),
                 border: InputBorder.none
               ),
+              onChanged: (val)=> _controller.dateController = val,
             ),
             Container(
               width: MediaQuery.of(context).size.width,
@@ -77,8 +87,10 @@ class InsertDataScreen extends StatelessWidget {
                       color: textColor
                     ),)
                 ),
-                onPressed: () {
-                  
+                onPressed: () async{
+                  if(_formKey.currentState.validate()){
+                    await _controller.addTodo();
+                  }
                 },
               ),
             )

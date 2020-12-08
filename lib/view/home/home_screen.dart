@@ -3,12 +3,14 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:get/get.dart';
+import 'package:neo_list/controller/todo_controller.dart';
 import 'package:neo_list/share/colors.dart';
 import 'package:neo_list/view/insert/input_data_screen.dart';
 
 import 'card_widget.dart';
 
 class HomeScreen extends StatelessWidget {
+  final TodoController _controller = Get.put(TodoController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,41 +57,53 @@ class HomeScreen extends StatelessWidget {
                 height: 16.0,
               ),
               Expanded(
-                child: ListView.builder(
-                  clipBehavior: Clip.none,
-                  itemCount: 10,
-                  scrollDirection: Axis.vertical,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: 12.0),
-                      child: Neumorphic(
-                        style: NeumorphicStyle(
-                            shape: NeumorphicShape.flat,
-                            boxShape: NeumorphicBoxShape.roundRect(
-                                BorderRadius.circular(12))),
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Row(
-                            children: [
-                              NeumorphicCheckbox(
-                                padding: EdgeInsets.all(1.0),
-                                value: false,
-                                onChanged: (x) {
-                                  print("asd");
-                                },
-                                style: NeumorphicCheckboxStyle(
-                                  boxShape: NeumorphicBoxShape.circle(),
+                child: Obx((){
+                  return ListView.builder(
+                    clipBehavior: Clip.none,
+                    itemCount: _controller.todoModelList.length,
+                    scrollDirection: Axis.vertical,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 12.0),
+                        child: Neumorphic(
+                          style: NeumorphicStyle(
+                              shape: NeumorphicShape.flat,
+                              boxShape: NeumorphicBoxShape.roundRect(
+                                  BorderRadius.circular(12))),
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Row(
+                              children: [
+                                NeumorphicCheckbox(
+                                  padding: EdgeInsets.all(1.0),
+                                  value: false,
+                                  onChanged: (x) {
+                                    print("asd");
+                                  },
+                                  style: NeumorphicCheckboxStyle(
+                                    boxShape: NeumorphicBoxShape.circle(),
+                                  ),
                                 ),
-                              ),
-                              SizedBox(width: 16.0),
-                              Text("Tugas kerjain boss")
-                            ],
+                                SizedBox(width: 16.0),
+                                Text(_controller.todoModelList[index].todo),
+                                IconButton(
+                                  icon: Icon(Icons.delete),
+                                  onPressed: (){
+                                    _controller.deleteTodo(
+                                      _controller.todoModelList[index]
+                                    );
+                                    print(_controller.todoModelList.length);
+                                  },
+                                )
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    );
-                  },
+                      );
+                    },
+                  );
+                  }
                 ),
               )
             ],

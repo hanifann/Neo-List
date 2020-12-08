@@ -2,7 +2,7 @@ class TodoModel {
   int id;
   String todo;
   String dateTime;
-  bool done;
+  String done;
 
   TodoModel({this.id, this.todo, this.dateTime, this.done});
 
