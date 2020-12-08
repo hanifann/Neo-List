@@ -3,7 +3,7 @@ import 'package:sqflite/sqflite.dart';
 
 class DatabaseService {
   static Database _database;
-  static final int _version = 1;
+  static final int _version = 2;
   static final String _tableName = 'db_todo';
 
   static Future<void> initDb() async {
@@ -17,7 +17,7 @@ class DatabaseService {
         version: _version,
         onCreate: (db, version){
           return db.execute(
-            "CREATE TABLE $_tableName(id INTEGER PRIMARY KEY AUTO INCREMENT, todo STRING, dateTime TEXT, done INT)",
+            "CREATE TABLE $_tableName(id INTEGER PRIMARY KEY AUTOINCREMENT, todo STRING, dateTime TEXT, done String, kategori STRING)",
           );
         }
       );
@@ -37,5 +37,8 @@ class DatabaseService {
   
 
   static Future<List<Map<String, dynamic>>> query() async => _database.query(_tableName);
+
+  static Future<List<Map<String, dynamic>>> queryClause(var where,String clause) async => 
+  _database.query(_tableName, where: '$where = ?', whereArgs: [clause]);
   
 }
