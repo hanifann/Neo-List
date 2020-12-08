@@ -5,9 +5,12 @@ import 'package:get/get.dart';
 import 'package:neo_list/controller/todo_controller.dart';
 import 'package:neo_list/share/colors.dart';
 
+import '../../share/colors.dart';
+
 class InsertDataScreen extends StatelessWidget {
   final TodoController _controller = Get.find<TodoController>();
   final _formKey = GlobalKey<FormState>();
+  String dropdownValue = 'One';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +24,7 @@ class InsertDataScreen extends StatelessWidget {
             ),
             onTap: (){
               Get.back();
-              _controller.getTodo();
+              _controller.getCategory('kategori','Work');
             },
           ),
         ],
@@ -78,6 +81,34 @@ class InsertDataScreen extends StatelessWidget {
               ),
               onChanged: (val)=> _controller.dateController = val,
             ),
+            Row(
+              children: [
+                Container(
+                  margin: EdgeInsets.only(left: 12.0, right: 13.0),
+                  child: Icon(
+                    Icons.label_outline_rounded,
+                    color: accentColor,
+                  )
+                ),
+                Expanded(
+                  child: DropdownButton<String>(
+                    hint: Text(_controller.labelValue),
+                    isExpanded: true,
+                    underline: Container(),
+                    onChanged: (String newValue) {
+                      _controller.labelValue = newValue;
+                    },
+                    items: <String>['Work', 'Study', 'Shop', 'Travel']
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                  ),
+                ),
+              ],
+            ),
             Container(
               width: MediaQuery.of(context).size.width,
               child: NeumorphicButton(
@@ -91,6 +122,7 @@ class InsertDataScreen extends StatelessWidget {
                   if(_formKey.currentState.validate()){
                     await _controller.addTodo();
                   }
+                  print(_controller.labelValue);
                 },
               ),
             )

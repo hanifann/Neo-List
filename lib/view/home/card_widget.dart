@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:get/state_manager.dart';
 import 'package:neo_list/share/colors.dart';
+import 'package:get/get.dart';
+import '../../controller/todo_controller.dart';
 
 class CardWidget extends StatelessWidget {
-  const CardWidget({
-    Key key,
-  }) : super(key: key);
-
+  final TodoController _controller = Get.find();
   @override
   Widget build(BuildContext context) {
     var neumorphic = Neumorphic(

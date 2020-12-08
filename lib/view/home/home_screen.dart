@@ -7,6 +7,7 @@ import 'package:neo_list/controller/todo_controller.dart';
 import 'package:neo_list/share/colors.dart';
 import 'package:neo_list/view/insert/input_data_screen.dart';
 
+import '../../share/colors.dart';
 import 'card_widget.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -60,7 +61,7 @@ class HomeScreen extends StatelessWidget {
                 child: Obx((){
                   return ListView.builder(
                     clipBehavior: Clip.none,
-                    itemCount: _controller.todoModelList.length,
+                    itemCount: _controller.kategoriList.length,
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
@@ -71,34 +72,38 @@ class HomeScreen extends StatelessWidget {
                               shape: NeumorphicShape.flat,
                               boxShape: NeumorphicBoxShape.roundRect(
                                   BorderRadius.circular(12))),
-                          child: Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: Row(
-                              children: [
-                                NeumorphicCheckbox(
-                                  padding: EdgeInsets.all(1.0),
-                                  value: false,
-                                  onChanged: (x) {
-                                    print("asd");
-                                  },
-                                  style: NeumorphicCheckboxStyle(
-                                    boxShape: NeumorphicBoxShape.circle(),
-                                  ),
-                                ),
-                                SizedBox(width: 16.0),
-                                Text(_controller.todoModelList[index].todo),
-                                IconButton(
-                                  icon: Icon(Icons.delete),
-                                  onPressed: (){
-                                    _controller.deleteTodo(
-                                      _controller.todoModelList[index]
-                                    );
-                                    print(_controller.todoModelList.length);
-                                  },
-                                )
-                              ],
+                          child: ListTile(
+                            leading: NeumorphicCheckbox(
+                              value: false,
+                              onChanged: (x) {
+                                print("asd");
+                              },
+                              style: NeumorphicCheckboxStyle(
+                                boxShape: NeumorphicBoxShape.circle(),
+                              ),
                             ),
-                          ),
+                            title: Text(_controller.kategoriList[index].todo,
+                              style: TextStyle(
+                                color: textColor
+                              ),
+                            ),
+                            subtitle: Text(_controller.kategoriList[index].dateTime,
+                              style: TextStyle(
+                                color: secTextColor
+                              )
+                            ),
+                            trailing: InkWell(
+                              child: Icon(
+                                Icons.delete,
+                                color: accentColor,
+                              ),
+                              onTap: (){
+                                _controller.deleteTodo(
+                                  _controller.kategoriList[index]
+                                );
+                              },
+                            ),
+                          )
                         ),
                       );
                     },
