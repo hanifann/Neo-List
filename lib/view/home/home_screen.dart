@@ -94,7 +94,7 @@ class HomeScreen extends StatelessWidget {
                             ),
                             trailing: InkWell(
                               child: Icon(
-                                Icons.delete,
+                                Icons.close,
                                 color: accentColor,
                               ),
                               onTap: (){
