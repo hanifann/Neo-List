@@ -3,8 +3,10 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:get/get.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:neo_list/controller/todo_controller.dart';
 import 'package:neo_list/share/colors.dart';
+import 'package:neo_list/share/custom_Icon.dart';
 import 'package:neo_list/view/insert/input_data_screen.dart';
 
 import '../../share/colors.dart';
@@ -57,9 +59,41 @@ class HomeScreen extends StatelessWidget {
               SizedBox(
                 height: 16.0,
               ),
-              Expanded(
-                child: Obx((){
-                  return ListView.builder(
+              SizedBox(height: 12),
+              Obx((){
+                return _controller.kategoriList.isEmpty ?
+                Center(
+                  child: Column(
+                    children: [
+                      NeumorphicIcon(
+                        CustomIcon.empty_set_mathematical_symbol,
+                        size: 200,
+                        style: NeumorphicStyle(
+                          color: backgroundColor,
+                          shadowLightColor: HexColor('#FFF')
+                        ),
+                      ),
+                      Text(
+                        'Nothing',
+                        style: TextStyle(
+                          fontFamily: 'Mont',
+                          fontSize: 16,
+                          color: thirdTextColor
+                        ),
+                      ),
+                      Text(
+                        'Go back to sleep',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontFamily: 'Mont',
+                          color: thirdTextColor
+                        ),
+                      )
+                    ],
+                  ),
+                ) :
+                Expanded(
+                  child: ListView.builder(
                     clipBehavior: Clip.none,
                     itemCount: _controller.kategoriList.length,
                     scrollDirection: Axis.vertical,
@@ -104,22 +138,24 @@ class HomeScreen extends StatelessWidget {
                               },
                             ),
                           )
-                        ),
+                        )
                       );
                     },
-                  );
-                  }
-                ),
-              )
+                  ),
+                );
+                }
+              ),
             ],
           ),
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () { 
-            Get.to(InsertDataScreen());
-           },
-          child: Icon(Icons.add, color: backgroundColor,),
+          child: Icon(
+            Icons.add
+          ),
           backgroundColor: accentColor,
+          onPressed: (){
+            Get.to(InsertDataScreen());
+          },
         ),
       );
   }

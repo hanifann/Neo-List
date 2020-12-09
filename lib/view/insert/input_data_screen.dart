@@ -24,6 +24,8 @@ class InsertDataScreen extends StatelessWidget {
             onTap: (){
               Get.back();
               _controller.getCategory('dateTime',DateFormat('dd MMMM yyyy').format(DateTime.now()));
+              print(_controller.kategoriList.isEmpty);
+              print(_controller.kategoriList.length);
             },
           ),
         ],
@@ -43,7 +45,7 @@ class InsertDataScreen extends StatelessWidget {
                 key: _formKey,
                 child: TextFormField(
                   controller: _controller.todoTextController,
-                  autofocus: true,
+                  autofocus: false,
                   decoration: InputDecoration(
                     focusedBorder: InputBorder.none,
                     border: InputBorder.none,
@@ -62,11 +64,7 @@ class InsertDataScreen extends StatelessWidget {
               color: secTextColor,
             ),
             DateTimePicker(
-              type: DateTimePickerType.dateTime,
-              icon: Icon(
-                Icons.date_range,
-                color: accentColor,
-              ),
+              type: DateTimePickerType.date,
               initialValue: DateTime.now().toString(),
               firstDate: DateTime(2000),
               lastDate: DateTime(2100),
@@ -127,7 +125,7 @@ class InsertDataScreen extends StatelessWidget {
                   print(DateFormat('dd MMMM yyyy').format(DateTime.now()));
                 },
               ),
-            )
+            ),
           ],
         ),
       ),

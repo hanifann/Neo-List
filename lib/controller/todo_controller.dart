@@ -18,10 +18,9 @@ class TodoController extends GetxController {
   String labelValue = 'Kategori';
 
   @override
-  void onReady() {
+  void onInit() {
     getCategory('dateTime', DateFormat('dd MMMM yyyy').format(DateTime.now()));
-    // getTodo();
-    super.onReady();
+    super.onInit();
   }
 
   Future<void> addTodo() async {
