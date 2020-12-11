@@ -68,11 +68,11 @@ flutter:
         # - asset: asset/fonts/Konnect.ttf
         - asset: asset/fonts/Mont.ttf
         - asset: asset/fonts/Mont-Bold.ttf
-    
-    - family:  sleep
+
+    - family: sleep
       fonts:
-      # - asset: asset/fonts/MyFlutterApp.ttf
-      - asset: asset/fonts/sleep.ttf
+        # - asset: asset/fonts/MyFlutterApp.ttf
+        - asset: asset/fonts/sleep.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro
