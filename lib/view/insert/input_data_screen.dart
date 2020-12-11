@@ -1,5 +1,6 @@
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dropdown/flutter_dropdown.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:get/get.dart';
 import 'package:neo_list/controller/todo_controller.dart';
@@ -23,7 +24,7 @@ class InsertDataScreen extends StatelessWidget {
             ),
             onTap: (){
               Get.back();
-              _controller.getCategory('dateTime',DateFormat('dd MMMM yyyy').format(DateTime.now()));
+              _controller.getCategory('date',DateFormat('dd MMMM yyyy').format(DateTime.now()));
               print(_controller.kategoriList.isEmpty);
               print(_controller.kategoriList.length);
             },
@@ -64,7 +65,7 @@ class InsertDataScreen extends StatelessWidget {
               color: secTextColor,
             ),
             DateTimePicker(
-              type: DateTimePickerType.date,
+              type: DateTimePickerType.dateTime,
               initialValue: DateTime.now().toString(),
               firstDate: DateTime(2000),
               lastDate: DateTime(2100),
@@ -79,6 +80,8 @@ class InsertDataScreen extends StatelessWidget {
               onChanged: (val){
                 _controller.dateController = 
                   DateFormat('dd MMMM yyyy').format(DateTime.parse(val));
+                _controller.timeController = 
+                  DateFormat('hh:mm').format(DateTime.parse(val));
               }              
             ),
             Row(
@@ -91,20 +94,14 @@ class InsertDataScreen extends StatelessWidget {
                   )
                 ),
                 Expanded(
-                  child: DropdownButton<String>(
-                    hint: Text(_controller.labelValue),
+                  child: DropDown<String>(
+                    hint: Text('Kategori'),
                     isExpanded: true,
-                    underline: Container(),
+                    showUnderline: false,
                     onChanged: (String newValue) {
                       _controller.labelValue = newValue;
                     },
                     items: _controller.categoryItemList
-                        .map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
                   ),
                 ),
               ],

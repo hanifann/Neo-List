@@ -17,7 +17,7 @@ class DatabaseService {
         version: _version,
         onCreate: (db, version){
           return db.execute(
-            "CREATE TABLE $_tableName(id INTEGER PRIMARY KEY AUTOINCREMENT, todo STRING, dateTime TEXT, done String, kategori STRING)",
+            "CREATE TABLE $_tableName(id INTEGER PRIMARY KEY AUTOINCREMENT, todo STRING, date TEXT, done String, kategori STRING, jam TEXT)",
           );
         }
       );
@@ -40,5 +40,11 @@ class DatabaseService {
 
   static Future<List<Map<String, dynamic>>> queryClause(var where,String clause) async => 
   _database.query(_tableName, where: '$where = ?', whereArgs: [clause]);
+
+  static Future<int>getCount() async{
+    var x = await _database.rawQuery('SELECT COUNT (*) FROM $_tableName');
+    int count = Sqflite.firstIntValue(x);
+    return count;
+  }
   
 }

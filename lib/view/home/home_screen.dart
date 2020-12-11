@@ -65,6 +65,7 @@ class HomeScreen extends StatelessWidget {
                 Center(
                   child: Column(
                     children: [
+                      
                       NeumorphicIcon(
                         CustomIcon.empty_set_mathematical_symbol,
                         size: 200,
@@ -107,21 +108,26 @@ class HomeScreen extends StatelessWidget {
                               boxShape: NeumorphicBoxShape.roundRect(
                                   BorderRadius.circular(12))),
                           child: ListTile(
-                            leading: NeumorphicCheckbox(
-                              value: false,
-                              onChanged: (x) {
-                                print("asd");
-                              },
-                              style: NeumorphicCheckboxStyle(
-                                boxShape: NeumorphicBoxShape.circle(),
-                              ),
+                            leading: Obx((){
+                              return NeumorphicCheckbox(
+                                  value: _controller.checkList.value,
+                                  onChanged: (x) {
+                                    _controller.checkList.value = x;
+                                  },
+                                  style: NeumorphicCheckboxStyle(
+                                    boxShape: NeumorphicBoxShape.circle(),
+                                  ),
+                                );
+                              }
                             ),
                             title: Text(_controller.kategoriList[index].todo,
                               style: TextStyle(
                                 color: textColor
                               ),
                             ),
-                            subtitle: Text(_controller.kategoriList[index].dateTime.toString(),
+                            subtitle: Text(
+                              _controller.kategoriList[index].date.toString()+' - '+
+                              _controller.kategoriList[index].jam,
                               style: TextStyle(
                                 color: secTextColor
                               )
@@ -155,6 +161,7 @@ class HomeScreen extends StatelessWidget {
           backgroundColor: accentColor,
           onPressed: (){
             Get.to(InsertDataScreen());
+            _controller.labelValue = '';
           },
         ),
       );

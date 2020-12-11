@@ -32,7 +32,18 @@ class CardWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text("40 task", style: TextStyle(color: thirdTextColor)),
+                    FutureBuilder(
+                      future: _controller.getHitung(),
+                      builder: (context, snapshot){
+                        if(snapshot.hasData){
+                          return Text("${snapshot.data.toString()} task", 
+                          style: TextStyle(color: thirdTextColor));
+                        }else{
+                          return Text("0 task", 
+                          style: TextStyle(color: thirdTextColor));
+                        }
+                      },
+                    ),
                     SizedBox(height: 8.0),
                     Text(_controller.categoryItemList[index],
                       style: TextStyle(
@@ -43,7 +54,7 @@ class CardWidget extends StatelessWidget {
                     SizedBox(height: 8.0),
                     NeumorphicProgress(
                       height: 5.0,
-                      percent: 0.50,
+                      percent: 0.4,
                     )
                   ],
                 ),

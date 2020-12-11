@@ -15,25 +15,31 @@ class TodoController extends GetxController {
 
   TextEditingController todoTextController = TextEditingController();
   var dateController;
-  String labelValue = 'Kategori';
+  var timeController;
+  String labelValue;
+  int jumlah;
+  final checkList = false.obs;
 
   @override
   void onInit() {
-    getCategory('dateTime', DateFormat('dd MMMM yyyy').format(DateTime.now()));
+    getCategory('date', DateFormat('dd MMMM yyyy').format(DateTime.now()));
     super.onInit();
   }
 
   Future<void> addTodo() async {
     await DatabaseService.insert(TodoModel(
         todo: todoTextController.text,
-        dateTime: dateController,
+        date: dateController,
         done: "true",
-        kategori: labelValue));
+        kategori: labelValue,
+        jam: timeController));
+    getHitung();
   }
 
   void getTodo() async {
     todoTextController.text = '';
     dateController = '';
+    timeController = '';
     List<Map<String, dynamic>> todoList = await DatabaseService.query();
     todoModelList
         .assignAll(todoList.map((data) => TodoModel.fromJson(data)).toList());
@@ -41,15 +47,22 @@ class TodoController extends GetxController {
 
   void deleteTodo(TodoModel todoModel) async {
     await DatabaseService.delete(todoModel);
-    getCategory('dateTime', DateFormat('dd MMMM yyyy').format(DateTime.now()));
+    getCategory('date', DateFormat('dd MMMM yyyy').format(DateTime.now()));
+    getHitung();
   }
 
   void getCategory(var where, String kategori) async {
     todoTextController.text = '';
     dateController = '';
+    timeController = '';
     List<Map<String, dynamic>> todoList =
         await DatabaseService.queryClause(where, kategori);
     kategoriList
         .assignAll(todoList.map((data) => TodoModel.fromJson(data)).toList());
+  }
+
+  getHitung() async {
+    jumlah = await DatabaseService.getCount();
+    return jumlah;
   }
 }
