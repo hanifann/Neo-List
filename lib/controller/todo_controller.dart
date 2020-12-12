@@ -9,9 +9,6 @@ import '../services/database_service.dart';
 
 class TodoController extends GetxController {
   var todoModelList = List<TodoModel>().obs;
-  var kategoriList = List<TodoModel>().obs;
-
-  var categoryItemList = <String>['Work', 'Study', 'Shop', 'Travel'];
 
   TextEditingController todoTextController = TextEditingController();
   var dateController;
@@ -36,14 +33,14 @@ class TodoController extends GetxController {
     getHitung();
   }
 
-  void getTodo() async {
-    todoTextController.text = '';
-    dateController = '';
-    timeController = '';
-    List<Map<String, dynamic>> todoList = await DatabaseService.query();
-    todoModelList
-        .assignAll(todoList.map((data) => TodoModel.fromJson(data)).toList());
-  }
+  // void getTodo() async {
+  //   todoTextController.text = '';
+  //   dateController = '';
+  //   timeController = '';
+  //   List<Map<String, dynamic>> todoList = await DatabaseService.query();
+  //   todoModelList
+  //       .assignAll(todoList.map((data) => TodoModel.fromJson(data)).toList());
+  // }
 
   void deleteTodo(TodoModel todoModel) async {
     await DatabaseService.delete(todoModel);
@@ -57,7 +54,7 @@ class TodoController extends GetxController {
     timeController = '';
     List<Map<String, dynamic>> todoList =
         await DatabaseService.queryClause(where, kategori);
-    kategoriList
+    todoModelList
         .assignAll(todoList.map((data) => TodoModel.fromJson(data)).toList());
   }
 
