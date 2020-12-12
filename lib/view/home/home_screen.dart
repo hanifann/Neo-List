@@ -7,6 +7,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:neo_list/controller/todo_controller.dart';
 import 'package:neo_list/share/colors.dart';
 import 'package:neo_list/share/custom_Icon.dart';
+import 'package:neo_list/share/list_widget.dart';
 import 'package:neo_list/view/insert/input_data_screen.dart';
 
 import '../../share/colors.dart';
@@ -61,11 +62,10 @@ class HomeScreen extends StatelessWidget {
               ),
               SizedBox(height: 12),
               Obx((){
-                return _controller.kategoriList.isEmpty ?
+                return _controller.todoModelList.isEmpty ?
                 Center(
                   child: Column(
-                    children: [
-                      
+                    children: [                      
                       NeumorphicIcon(
                         CustomIcon.empty_set_mathematical_symbol,
                         size: 200,
@@ -94,71 +94,27 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ) :
                 Expanded(
-                  child: ListView.builder(
-                    clipBehavior: Clip.none,
-                    itemCount: _controller.kategoriList.length,
-                    scrollDirection: Axis.vertical,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.only(bottom: 12.0),
-                        child: Neumorphic(
-                          style: NeumorphicStyle(
-                              shape: NeumorphicShape.flat,
-                              boxShape: NeumorphicBoxShape.roundRect(
-                                  BorderRadius.circular(12))),
-                          child: ListTile(
-                            leading: Obx((){
-                              return NeumorphicCheckbox(
-                                  value: _controller.checkList.value,
-                                  onChanged: (x) {
-                                    _controller.checkList.value = x;
-                                  },
-                                  style: NeumorphicCheckboxStyle(
-                                    boxShape: NeumorphicBoxShape.circle(),
-                                  ),
-                                );
-                              }
-                            ),
-                            title: Text(_controller.kategoriList[index].todo,
-                              style: TextStyle(
-                                color: textColor
-                              ),
-                            ),
-                            subtitle: Text(
-                              _controller.kategoriList[index].date.toString()+' - '+
-                              _controller.kategoriList[index].jam,
-                              style: TextStyle(
-                                color: secTextColor
-                              )
-                            ),
-                            trailing: InkWell(
-                              child: Icon(
-                                Icons.close,
-                                color: accentColor,
-                              ),
-                              onTap: (){
-                                _controller.deleteTodo(
-                                  _controller.kategoriList[index]
-                                );
-                              },
-                            ),
-                          )
-                        )
-                      );
-                    },
-                  ),
-                );
+                  child: ListWidget(
+                    itemLength: _controller.todoModelList.length,
+                    controller: _controller,
+                    modelList: _controller.todoModelList,
+                    )
+                  );
                 }
               ),
             ],
           ),
         ),
-        floatingActionButton: FloatingActionButton(
+        floatingActionButton: NeumorphicFloatingActionButton(
           child: Icon(
-            Icons.add
+            Icons.add,
+            color: backgroundColor,
           ),
-          backgroundColor: accentColor,
+          style: NeumorphicStyle(
+            boxShape: NeumorphicBoxShape.circle(),
+            color: accentColor,
+            shadowDarkColor: accentColor
+          ),
           onPressed: (){
             Get.to(InsertDataScreen());
             _controller.labelValue = '';
