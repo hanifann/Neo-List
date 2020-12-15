@@ -29,9 +29,21 @@ class ListWidget extends StatelessWidget {
                 child: ListTile(
                   leading: Obx(() {
                     return NeumorphicCheckbox(
-                      value: controller.checkList.value,
+                      value: controller
+                          .intToBoolean(modelList[index].done),
                       onChanged: (x) {
-                        controller.checkList.value = x;
+                        var changed = modelList[index];
+                        changed.done = controller.boolToInt(x);
+                        modelList[index] = changed;
+                        debugPrint(modelList[index].id.toString());
+                        controller.updateTodo(
+                          modelList[index].todo,
+                          modelList[index].date,
+                          modelList[index].done,
+                          modelList[index].kategori,
+                          modelList[index].jam,
+                          modelList[index].id
+                        );
                       },
                       style: NeumorphicCheckboxStyle(
                         boxShape: NeumorphicBoxShape.circle(),
@@ -56,9 +68,7 @@ class ListWidget extends StatelessWidget {
                       controller.deleteTodo(modelList[index]);
                     },
                   ),
-                )
-              )
-            );
+                )));
       },
     );
   }

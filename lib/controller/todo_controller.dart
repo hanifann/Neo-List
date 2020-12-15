@@ -15,7 +15,7 @@ class TodoController extends GetxController {
   var timeController;
   String labelValue;
   int jumlah;
-  final checkList = false.obs;
+  final checkList = 0.obs;
 
   @override
   void onInit() {
@@ -27,9 +27,24 @@ class TodoController extends GetxController {
     await DatabaseService.insert(TodoModel(
         todo: todoTextController.text,
         date: dateController,
-        done: "true",
+        done: 0,
         kategori: labelValue,
         jam: timeController));
+    getHitung();
+  }
+
+  Future<void> updateTodo(String todo, String date, int done, String kategori, String jam, int id ) async {
+    await DatabaseService.update(
+      TodoModel(
+        id: id,
+        todo: todo,
+        date: date,
+        done: 1,
+        kategori: kategori,
+        jam: jam
+      )
+    );
+    getCategory('date', DateFormat('dd MMMM yyyy').format(DateTime.now()));
     getHitung();
   }
 
@@ -61,5 +76,21 @@ class TodoController extends GetxController {
   getHitung() async {
     jumlah = await DatabaseService.getCount();
     return jumlah;
+  }
+
+  bool intToBoolean(checkList) {
+    if (checkList == 1) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  int boolToInt(bool data) {
+    if (data == true) {
+      return 1;
+    } else {
+      return 0;
+    }
   }
 }

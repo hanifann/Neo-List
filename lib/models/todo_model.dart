@@ -2,7 +2,7 @@ class TodoModel {
   int id;
   String todo;
   String date;
-  String done;
+  int done;
   String kategori;
   String jam;
 
