@@ -35,11 +35,11 @@ class ListWidget extends StatelessWidget {
                         var changed = modelList[index];
                         changed.done = controller.boolToInt(x);
                         modelList[index] = changed;
-                        debugPrint(modelList[index].id.toString());
+                        debugPrint(changed.done.toString());
                         controller.updateTodo(
                           modelList[index].todo,
                           modelList[index].date,
-                          modelList[index].done,
+                          changed.done,
                           modelList[index].kategori,
                           modelList[index].jam,
                           modelList[index].id

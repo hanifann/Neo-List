@@ -39,7 +39,7 @@ class TodoController extends GetxController {
         id: id,
         todo: todo,
         date: date,
-        done: 1,
+        done: done,
         kategori: kategori,
         jam: jam
       )
