@@ -22,11 +22,15 @@ class CardWidget extends StatelessWidget {
         shrinkWrap: true,
         itemBuilder: (context, index) {
           return InkWell(
-            onTap: () => Get.to(
+            onTap: () {
+              Get.to(
               CategoryScreen(
                 categoryTitle: _categoryContrloller.categoryItemList[index].toString()
               )
-            ),
+            );
+            _categoryContrloller.getCategory(
+              'kategori', _categoryContrloller.categoryItemList[index]);
+            } ,
             child: Container(
               margin: EdgeInsets.only(right: 18.0),
               width: 200,

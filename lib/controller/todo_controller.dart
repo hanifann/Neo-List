@@ -19,7 +19,7 @@ class TodoController extends GetxController {
 
   @override
   void onInit() {
-    getCategory('date', DateFormat('dd MMMM yyyy').format(DateTime.now()));
+    getToday('date', DateFormat('dd MMMM yyyy').format(DateTime.now()));
     super.onInit();
   }
 
@@ -44,7 +44,7 @@ class TodoController extends GetxController {
         jam: jam
       )
     );
-    getCategory('date', DateFormat('dd MMMM yyyy').format(DateTime.now()));
+    getToday('date', DateFormat('dd MMMM yyyy').format(DateTime.now()));
     getHitung();
   }
 
@@ -59,11 +59,11 @@ class TodoController extends GetxController {
 
   void deleteTodo(TodoModel todoModel) async {
     await DatabaseService.delete(todoModel);
-    getCategory('date', DateFormat('dd MMMM yyyy').format(DateTime.now()));
+    getToday('date', DateFormat('dd MMMM yyyy').format(DateTime.now()));
     getHitung();
   }
 
-  void getCategory(var where, String kategori) async {
+  void getToday(var where, String kategori) async {
     todoTextController.text = '';
     dateController = '';
     timeController = '';

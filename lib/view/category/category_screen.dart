@@ -3,6 +3,7 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:neo_list/controller/category_contrloller.dart';
+import 'package:neo_list/controller/todo_controller.dart';
 import 'package:neo_list/share/colors.dart';
 import 'package:neo_list/share/custom_Icon.dart';
 import 'package:neo_list/share/list_widget.dart';
@@ -28,47 +29,48 @@ class CategoryScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: Obx((){
-        return _categoryController.categoryList.isEmpty ?
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [                      
-              Center(
-                child: NeumorphicIcon(
-                  CustomIcon.empty_set_mathematical_symbol,
-                  size: 200,
-                  style: NeumorphicStyle(
-                    color: backgroundColor,
-                    shadowLightColor: HexColor('#FFF')
+      body: Container(
+        padding: const EdgeInsets.only(left: 18.0, right: 18.0),
+        child: Obx((){
+          return _categoryController.categoryModelList.isEmpty ?
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [                      
+                Center(
+                  child: NeumorphicIcon(
+                    CustomIcon.empty_set_mathematical_symbol,
+                    size: 200,
+                    style: NeumorphicStyle(
+                      color: backgroundColor,
+                      shadowLightColor: HexColor('#FFF')
+                    ),
                   ),
                 ),
-              ),
-              Text(
-              'Nothing',
-                style: TextStyle(
-                  fontFamily: 'Mont',
-                  fontSize: 16,
-                  color: thirdTextColor
+                Text(
+                'Nothing',
+                  style: TextStyle(
+                    fontFamily: 'Mont',
+                    fontSize: 16,
+                    color: thirdTextColor
+                  ),
                 ),
-              ),
-              Text(
-                'Go back to sleep',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontFamily: 'Mont',
-                  color: thirdTextColor
-                ),
-              )
-          ],
-          ) : 
-          Expanded(
-            child: ListWidget(
-              itemLength: _categoryController.categoryList.length,
+                Text(
+                  'Go back to sleep',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontFamily: 'Mont',
+                    color: thirdTextColor
+                  ),
+                )
+            ],
+            ) : 
+            ListWidget(
+              itemLength: _categoryController.categoryModelList.length,
               controller: _categoryController,
-              modelList: _categoryController.categoryList,
-            ),
-          );
-        }
+              modelList: _categoryController.categoryModelList,
+            );
+          }
+        ),
       ),
     );
   }

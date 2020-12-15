@@ -28,7 +28,7 @@ class InsertDataScreen extends StatelessWidget {
             ),
             onTap: () {
               Get.back();
-              _controller.getCategory(
+              _controller.getToday(
                   'date', DateFormat('dd MMMM yyyy').format(DateTime.now()));
               print(_controller.todoModelList.isEmpty);
               print(_controller.todoModelList.length);
