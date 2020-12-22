@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:neo_list/services/database_service.dart';
 import 'package:neo_list/share/colors.dart';
 import 'package:neo_list/view/home/home_screen.dart';
+import 'package:neo_list/view/onBoard/onboard_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
       home: GetMaterialApp(
         debugShowCheckedModeBanner: false,
         themeMode: ThemeMode.light,
-        home: HomeScreen(),
+        home: OnboardingScreen(),
         theme: ThemeData(scaffoldBackgroundColor: backgroundColor),
       ),
     );
