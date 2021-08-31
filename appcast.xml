@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle">
+    <channel>
+        <title>My Tel-U Mobile</title>
+        <item>
+            <title>Version 1.3.6</title>
+            <description>desc</description>
+            <pubDate>Mon, 30 Aug 2021 12:00:00 +0000</pubDate>
+            <enclosure url="https://play.google.com/store/apps/details?id=com.telu.puti.mytelu" sparkle:version="1.15.0" sparkle:os="android" />
+        </item>
+    </channel>
+</rss>
